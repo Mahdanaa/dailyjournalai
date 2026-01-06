@@ -43,8 +43,9 @@ Aplikasi web Daily Journal yang memungkinkan pengguna untuk membuat, mengelola, 
 ├── koneksi.php            # Koneksi database
 ├── login.php              # Halaman login
 ├── logout.php             # Handler logout
-├── README.md              # File dokumentasi
-└── upload_foto.php        # Handler upload foto
+├── upload_foto.php        # Handler upload foto
+├── ai_helper.php          # Integrasi AI
+└── README.md              # File dokumentasi
 ```
 
 ---
