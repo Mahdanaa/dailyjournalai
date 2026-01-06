@@ -28,20 +28,23 @@ Aplikasi web Daily Journal yang memungkinkan pengguna untuk membuat, mengelola, 
 ## Struktur Proyek
 
 ```
-├── index.php              # Halaman utama/dashboard publik
-├── dashboard.php          # Dashboard pengguna
+├── .env                   # File konfigurasi API Key
+├── .git/                  # Git repository
+├── .gitignore             # Git ignore file
 ├── admin.php              # Panel admin
+├── ai_helper.php          # Integrasi AI
 ├── article.php            # Halaman artikel
 ├── article_data.php       # API/data handler artikel
+├── dashboard.php          # Dashboard pengguna
 ├── gallery.php            # Halaman galeri
 ├── gallery_data.php       # API/data handler galeri
+├── img/                   # Folder penyimpanan gambar
+├── index.php              # Halaman utama/dashboard publik
+├── koneksi.php            # Koneksi database
 ├── login.php              # Halaman login
 ├── logout.php             # Handler logout
-├── upload_foto.php        # Handler upload foto
-├── ai_helper.php          # Integrasi AI
-├── koneksi.php            # Koneksi database
-├── img/                   # Folder penyimpanan gambar
-└── README.md              # File dokumentasi
+├── README.md              # File dokumentasi
+└── upload_foto.php        # Handler upload foto
 ```
 
 ---

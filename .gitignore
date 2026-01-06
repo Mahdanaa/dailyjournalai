@@ -1,3 +1,15 @@
 .env
 koneksi.php
-img/
+img/*
+!img/logo.jpeg
+!img/banner.jpg
+!img/canteen.jpg
+!img/aldo.jpg
+!img/fara.jpg
+!img/ihsan.jpg
+!img/mahdanaa.jpg
+!img/besar1a.jpg
+!img/besar2b.jpg
+!img/besar3c.jpg
+!img/4x6.jpg
+!img/no-image.png
