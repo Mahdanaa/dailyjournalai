@@ -57,7 +57,11 @@
                                     <div class="modal-body">
                                         <input type="hidden" name="id" value="<?= $row["id"] ?>">
                                         <div class="mb-3">
-                                            <label for="formGroupExampleInput" class="form-label">Kategori</label>
+                                            <div class="mb-3">
+                                                <label for="formGroupExampleInput" class="form-label">Kategori</label>
+                                                <input type="text" class="form-control" name="kategori" value="<?= $row['kategori'] ?>" placeholder="Contoh: Hobi, Liburan" required>
+                                            </div>
+
 
                                         </div>
                                         <div class="mb-3">

@@ -1,7 +1,9 @@
 <?php
+// 1. IMPORT FILE
 include "koneksi.php";
 include "upload_foto.php";
 
+// 2. LOGIKA Create & Update
 if (isset($_POST['simpan'])) {
     $deskripsi = $_POST['deskripsi'];
     $kategori = $_POST['kategori'];
@@ -9,9 +11,9 @@ if (isset($_POST['simpan'])) {
     $gambar = '';
     $nama_gambar = $_FILES['gambar']['name'];
 
-    // 1. Jika ada gambar baru, upload dulu
     if ($nama_gambar != '') {
         $cek_upload = upload_foto($_FILES["gambar"]);
+
         if ($cek_upload['status']) {
             $gambar = $cek_upload['message'];
         } else {
@@ -20,13 +22,12 @@ if (isset($_POST['simpan'])) {
         }
     }
 
-    // 2. Cek ID untuk Update atau Insert
     if (isset($_POST['id'])) {
         $id = $_POST['id'];
+
         if ($nama_gambar == '') {
             $gambar = $_POST['gambar_lama'];
         } else {
-            // Hapus gambar lama jika ada gambar baru
             unlink("img/" . $_POST['gambar_lama']);
         }
 
@@ -34,7 +35,6 @@ if (isset($_POST['simpan'])) {
         $stmt->bind_param("ssssi", $gambar, $deskripsi, $kategori, $username, $id);
         $simpan = $stmt->execute();
     } else {
-        // INSERT
         $stmt = $conn->prepare("INSERT INTO gallery (gambar, deskripsi, kategori, username) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $gambar, $deskripsi, $kategori, $username);
         $simpan = $stmt->execute();
@@ -50,7 +50,7 @@ if (isset($_POST['simpan'])) {
     $conn->close();
 }
 
-// Delete
+// 3. LOGIKA MENGHAPUS DATA
 if (isset($_POST['hapus'])) {
     $id = $_POST['id'];
     $gambar = $_POST['gambar'];
@@ -112,6 +112,7 @@ if (isset($_POST['hapus'])) {
                             <label for="formGroupExampleInput" class="form-label">Kategori</label>
                             <input type="text" class="form-control" name="kategori" id="inputKategori" placeholder="Contoh: Hobi, Liburan, atau biarkan AI mengisi" required>
                         </div>
+
                         <div class="mb-3">
                             <label for="floatingTextarea2">Deskripsi</label>
                             <textarea class="form-control" name="deskripsi" id="inputDeskripsi" placeholder="Tulis deskripsi atau gunakan tombol AI di atas" rows="3"></textarea>
@@ -129,7 +130,8 @@ if (isset($_POST['hapus'])) {
 
 <script>
 $(document).ready(function(){
-    // 1. Load Data Awal
+
+    // --- FUNGSI 1: LOAD DATA TABEL (AJAX) ---
     load_data();
     function load_data(hlm){
         $.ajax({
@@ -142,14 +144,15 @@ $(document).ready(function(){
         })
     }
 
-    // 2. Pagination Click
+    // --- FUNGSI 2: PAGINATION ---
     $(document).on('click', '.halaman', function(){
         var hlm = $(this).attr("id");
         load_data(hlm);
     });
 
-    // 3. LOGIKA TOMBOL AI (JQuery)
+    // --- FUNGSI 3 INTEGRASI AI
     $('#btnGenerateAI').click(function(){
+
         var file_data = $('#inputFile').prop('files')[0];
 
         if (!file_data) {
@@ -163,7 +166,6 @@ $(document).ready(function(){
         var form_data = new FormData();
         form_data.append('gambar', file_data);
 
-        // Kirim ke ai_helper.php
         $.ajax({
             url: 'ai_helper.php',
             dataType: 'json',
@@ -172,20 +174,22 @@ $(document).ready(function(){
             processData: false,
             data: form_data,
             type: 'post',
+
             success: function(response){
-                // Sembunyikan loading
                 $('#loadingAI').hide();
                 $('#btnGenerateAI').prop('disabled', false);
 
                 if(response.status === 'success') {
-                    // Isi kolom otomatis!
+                    // Tempelkan Deskripsi dari AI ke kotak input '#inputDeskripsi'
                     $('#inputDeskripsi').val(response.deskripsi);
                     $('#inputKategori').val(response.kategori);
+
                     alert('Sukses! AI telah memberikan saran.');
                 } else {
                     alert('Gagal: ' + response.message);
                 }
             },
+
             error: function(xhr, status, error) {
                 $('#loadingAI').hide();
                 $('#btnGenerateAI').prop('disabled', false);
