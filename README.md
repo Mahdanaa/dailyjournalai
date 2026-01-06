@@ -51,7 +51,7 @@ Aplikasi web Daily Journal yang memungkinkan pengguna untuk membuat, mengelola, 
 ### 1. Clone atau Download Project
 
 ```bash
-git clone [repository-url]
+git clone [[repository-url](https://github.com/Mahdanaa/dailyjournalai.git)]
 # atau download dan ekstrak file
 ```
 
