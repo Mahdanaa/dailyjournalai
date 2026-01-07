@@ -28,8 +28,6 @@ Aplikasi web Daily Journal yang memungkinkan pengguna untuk membuat, mengelola, 
 ## Struktur Proyek
 
 ```
-├── .env                   # File konfigurasi API Key
-├── .git/                  # Git repository
 ├── .gitignore             # Git ignore file
 ├── admin.php              # Panel admin
 ├── ai_helper.php          # Integrasi AI
@@ -41,10 +39,10 @@ Aplikasi web Daily Journal yang memungkinkan pengguna untuk membuat, mengelola, 
 ├── img/                   # Folder penyimpanan gambar
 ├── index.php              # Halaman utama/dashboard publik
 ├── koneksi.php            # Koneksi database
+├── koneksi_exemple.php    # Contoh struktur koneksi database
 ├── login.php              # Halaman login
 ├── logout.php             # Handler logout
 ├── upload_foto.php        # Handler upload foto
-├── ai_helper.php          # Integrasi AI
 └── README.md              # File dokumentasi
 ```
 
@@ -72,23 +70,36 @@ git clone https://github.com/Mahdanaa/dailyjournalai.git
 
 Edit file `koneksi.php` dan sesuaikan konfigurasi:
 
+1. Buka file `koneksi_exemple.php` untuk melihat struktur template
+2. Buat file baru bernama `koneksi.php` di root proyek
+3. Salin isi `koneksi_exemple.php` dan sesuaikan dengan konfigurasi Anda:
+
 ```php
-$servername = 'localhost';
-$username = 'root';        // Username MySQL Anda
-$password = '';            // Password MySQL Anda
-$db = 'webdailyjournal';   // Nama database
+date_default_timezone_set("Asia/Jakarta");
+
+$servername = "";  // Alamat server database
+$username   = "";  // Username MySQL Anda
+$password   = "";  // Password MySQL Anda
+$db         = ""; // Nama database
+
+$conn = new mysqli($servername, $username, $password, $db);
+
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+if (!defined('GEMINI_API_KEY')) {
+    define('GEMINI_API_KEY', 'your_gemini_api_key_here'); // Ganti dengan API Key Anda
+}
 ```
 
-### 4. Konfigurasi API Key
+4. Dapatkan API Key dari [Google AI Studio](https://aistudio.google.com/)
+5. Ganti `'your_gemini_api_key_here'` dengan API Key yang sudah Anda dapatkan
 
-1. Buat file `.env` di root folder proyek
-2. Tambahkan konfigurasi berikut:
+**Catatan Keamanan:**
 
-```env
-GEMINI_API_KEY=Isikan_API_Key_Google_AI_Studio_Disini
-```
-
-3. Dapatkan API Key dari [Google AI Studio](https://aistudio.google.com/)
+- File `koneksi.php` sudah di-ignore dalam `.gitignore` dan tidak akan di-push ke repository
+- Jangan pernah share file `koneksi.php` Anda ke publik atau GitHub
 
 ### 5. Jalankan Aplikasi
 
@@ -138,7 +149,7 @@ Proyek ini menggunakan pola arsitektur **MVC (Model-View-Controller)** sederhana
 
 **Alur Proses:**
 
-1. **User Action**: Pengguna memilih foto di menu Tambah Gallery dan menekan tombol "✨ Generate Deskripsi & Kategori (AI)"
+1. **User Action**: Pengguna memilih foto di menu Tambah Gallery dan menekan tombol "Generate Deskripsi & Kategori (AI)"
 
 2. **AJAX Request**: JavaScript (jQuery) mengambil file gambar dari input form dan mengirimkannya ke server (`ai_helper.php`) secara asynchronous (tanpa reload halaman)
 
