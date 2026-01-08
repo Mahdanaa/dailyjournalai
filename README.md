@@ -1,6 +1,8 @@
 # 📸 Web Daily Journal + AI Integration (Computer Vision)
 
-Aplikasi web Daily Journal yang memungkinkan pengguna untuk membuat, mengelola, dan membagikan artikel serta galeri foto dengan integrasi kecerdasan buatan dan computer vision.
+Web Daily Journal AI merupakan aplikasi web berbasis PHP yang dirancang untuk membantu pengguna dalam membuat, mengelola, dan mendokumentasikan aktivitas harian dalam bentuk artikel jurnal dan galeri foto secara digital. Aplikasi ini menyediakan antarmuka yang mudah digunakan sehingga pengguna dapat menulis, mengedit, serta mempublikasikan konten jurnal mereka dengan efisien.
+Keunggulan utama dari aplikasi ini adalah integrasi dengan Google Gemini AI, yang dimanfaatkan untuk fitur Computer Vision. Melalui teknologi ini, sistem mampu melakukan analisis otomatis pada gambar yang diunggah pengguna, kemudian menghasilkan deskripsi gambar serta kategori konten secara cerdas. Fitur ini membantu pengguna dalam mengelola galeri foto dengan lebih terstruktur dan informatif tanpa perlu melakukan pengisian data secara manual.
+
 
 ---
 
